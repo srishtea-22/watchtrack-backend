@@ -1,0 +1,28 @@
+{
+  "name": "watchtrack-backend",
+  "version": "1.0.0",
+  "description": "This repository serves as the backend for [watchtrack] (https://github.com/srishtea-22/watchtrack).",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srishtea-22/watchtrack-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srishtea-22/watchtrack-backend/issues"
+  },
+  "homepage": "https://github.com/srishtea-22/watchtrack-backend#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
