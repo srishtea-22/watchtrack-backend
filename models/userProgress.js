@@ -5,12 +5,7 @@ const userProgressSchema = new mongoose.Schema({
   videoId: String,
   lastWatched: Number, 
   videoLength: Number,
-//  segments: [
-//    {
-//        start: Number,
-//        end: Number
-//    }
-//  ],
+  watchedSegments: [[Number, Number]],
 //  totalProgress: {type: Number, default: 0}
 });
 
