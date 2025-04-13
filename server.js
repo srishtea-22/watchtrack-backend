@@ -64,6 +64,7 @@ app.get('/api/progress', async (req, res) => {
     if (userProgress) {
       return res.json({
         lastWatched: userProgress.lastWatched,
+        totalProgress: userProgress.totalProgress
       });
     }
     res.status(404).json({ message: 'Progress not found' });
