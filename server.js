@@ -29,8 +29,7 @@ app.post("/api/users", async (req, res) => {
 });
 
 app.post("/api/progress", async (req, res) => {
-  // const { userId, videoId, segment, videoLength, currentProgress } = req.body;
-    const { userId, videoId, lastWatched, videoLength } = req.body;
+    const { userId, videoId, lastWatched, videoLength, watchedSegments } = req.body;
   try {
     let userProgress = await UserProgress.findOne({ userId, videoId });
 
@@ -39,10 +38,12 @@ app.post("/api/progress", async (req, res) => {
             userId,
             videoId,
             lastWatched,
-            videoLength
+            videoLength,
+            watchedSegments
         });
     } else {
         userProgress.lastWatched = lastWatched;
+        userProgress.watchedSegments = mergeSegments(watchedSegments);
     }
 
     await userProgress.save();
@@ -63,3 +64,26 @@ main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect(process.env.MONGO_URL);
 }
+
+function mergeSegments(segments) {
+    segments.sort((a, b) => a[0] - b[0]);
+   
+    const merged = [];
+   
+    for (let current of segments) {
+        if (merged.length === 0) {
+            merged.push(current);
+        }
+        else {
+            let last = merged[merged.length - 1];
+   
+            if (current[0] <= last[1]) {
+                last[1] = Math.max(last[1], current[1]);
+            }
+            else {
+                merged.push(current);
+            }
+        }
+    }
+    return merged;
+  }
