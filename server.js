@@ -55,6 +55,18 @@ app.post("/api/progress", async (req, res) => {
 }
 });
 
+app.get('/api/progress', async (req, res) => {
+    const { userId } = req.query;
+    
+    const userProgress = await UserProgress.findOne({ userId });
+    if (userProgress) {
+      return res.json({
+        lastWatched: userProgress.lastWatched,
+      });
+    }
+    res.status(404).json({ message: 'Progress not found' });
+  });
+
 app.listen(PORT, () => {
     console.log("server started");
 });
