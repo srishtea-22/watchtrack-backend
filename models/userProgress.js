@@ -6,7 +6,7 @@ const userProgressSchema = new mongoose.Schema({
   lastWatched: Number, 
   videoLength: Number,
   watchedSegments: [[Number, Number]],
-//  totalProgress: {type: Number, default: 0}
+  totalProgress: {type: Number, default: 0}
 });
 
 const UserProgress = mongoose.model('UserProgress', userProgressSchema);
