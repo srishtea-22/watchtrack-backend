@@ -43,8 +43,10 @@ app.post("/api/progress", async (req, res) => {
         });
     } else {
         userProgress.lastWatched = lastWatched;
-        userProgress.watchedSegments = mergeSegments(watchedSegments);
+        userProgress.watchedSegments = mergeSegments([...userProgress.watchedSegments, ...watchedSegments]);
     }
+    userProgress.totalProgress = calculateTotalProgress(watchedSegments, videoLength);
+
 
     await userProgress.save();
     res.status(200).json({message: "Progress updated successfully"});
@@ -98,4 +100,17 @@ function mergeSegments(segments) {
         }
     }
     return merged;
+  }
+
+  function calculateTotalProgress(watchedSegments, videoLength) {
+    if (!watchedSegments || watchedSegments.length === 0 || !videoLength) {
+      return 0;
+    }
+  
+    let totalWatched = 0;
+    for (const segment of watchedSegments) {
+      totalWatched += Math.max(0, segment[1] - segment[0]); 
+    }
+  
+    return Math.round((totalWatched / videoLength) * 100);
   }
