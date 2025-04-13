@@ -45,7 +45,7 @@ app.post("/api/progress", async (req, res) => {
         userProgress.lastWatched = lastWatched;
         userProgress.watchedSegments = mergeSegments([...userProgress.watchedSegments, ...watchedSegments]);
     }
-    userProgress.totalProgress = calculateTotalProgress(watchedSegments, videoLength);
+    userProgress.totalProgress = calculateTotalProgress(userProgress.watchedSegments, videoLength);
 
 
     await userProgress.save();
