@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const User = require("./models/user");
 const UserProgress = require("./models/userProgress");
 const app = express();
-const PORT = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
@@ -70,7 +70,7 @@ app.get('/api/progress', async (req, res) => {
     res.status(404).json({ message: 'Progress not found' });
   });
 
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log("server started");
 });
 
